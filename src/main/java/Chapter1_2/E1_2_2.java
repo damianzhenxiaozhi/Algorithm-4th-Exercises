@@ -22,14 +22,15 @@ public class E1_2_2 {
         StdDraw.setPenColor(Color.RED);
         StdDraw.setPenRadius(0.001);
         double[] data = StdIn.readAllDoubles();
+
         Interval1D[] intervals = new Interval1D[data.length / 2];
         for (int i = 0; i < intervals.length; i++) {
-            intervals[i] = new Interval1D(data[i], data[i + 1]);
+            intervals[i] = new Interval1D(data[2 * i], data[2 * i + 1]);
         }
 
         for (int i = 0; i < intervals.length; i++) {
-            for (int j = 0; j < intervals.length; j++) {
-                if (i != j && intervals[i].intersects(intervals[j])) {
+            for (int j = i + 1; j < intervals.length; j++) {
+                if (intervals[i].intersects(intervals[j])) {
                     StdOut.println(intervals[i] + "-" + intervals[j]);
                 }
             }

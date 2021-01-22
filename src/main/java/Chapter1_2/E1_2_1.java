@@ -40,10 +40,8 @@ public class E1_2_1 {
 
         double minDistance = new Point2D(0, 0).distanceTo(new Point2D(1, 1));
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (i != j) {
-                    minDistance = Math.min(minDistance, points[i].distanceTo(points[j]));
-                }
+            for (int j = i + 1; j < N; j++) {
+                minDistance = Math.min(minDistance, points[i].distanceTo(points[j]));
             }
         }
 
