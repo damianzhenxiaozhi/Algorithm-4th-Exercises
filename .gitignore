@@ -28,3 +28,5 @@ hs_err_pid*
 # idea files
 .idea
 target
+mydata
+algs4-data
