@@ -1,9 +1,6 @@
 package chapter1_2;
 
-import edu.princeton.cs.algs4.Interval1D;
-import edu.princeton.cs.algs4.Interval2D;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.*;
 
 import java.awt.*;
 
@@ -18,16 +15,36 @@ public class E1_2_3 {
         double min = Double.parseDouble(args[1]);
         double max = Double.parseDouble(args[2]);
 
-        Interval2D[] i2ds = new Interval2D[N];
-        Interval1D[] edges = new Interval1D[2 * N];
+        Interval2D[] rectangles = new Interval2D[N];
+        Point2D[] leftTopArray = new Point2D[N];
+        Point2D[] rightBottomArray = new Point2D[N];
+        double left, right, top, bottom, a, b;
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < 2; j++) {
-                double eachMin = StdRandom.uniform(min, max);
-                double eachMax = StdRandom.uniform(eachMin, max);
-                edges[2 * i + j] = new Interval1D(eachMin, eachMax);
+            a = StdRandom.uniform(min, max);
+            b = StdRandom.uniform(min, max);
+            if (a < b) {
+                left = a;
+                right = b;
+            } else {
+                left = b;
+                right = a;
             }
 
-            i2ds[i] = new Interval2D(edges[2 * i], edges[2 * i + 1]);
+            a = StdRandom.uniform(min, max);
+            b = StdRandom.uniform(min, max);
+            if (a < b) {
+                bottom = a;
+                top = b;
+            } else {
+                bottom = b;
+                top = a;
+            }
+
+            leftTopArray[i] = new Point2D(left, top);
+            rightBottomArray[i] = new Point2D(right, bottom);
+
+            rectangles[i] = new Interval2D(new Interval1D(left, right), new Interval1D(bottom, top));
+            rectangles[i].draw();
         }
 
         StdDraw.setScale(min, max);
@@ -36,17 +53,16 @@ public class E1_2_3 {
         int intersectCount = 0;
         int containCount = 0;
         for (int i = 0; i < N; i++) {
-            i2ds[i].draw();
             for (int j = i + 1; j < N; j++) {
-                if (i2ds[i].intersects(i2ds[j])) {
+                if (rectangles[i].intersects(rectangles[j])) {
                     intersectCount++;
                 }
 
-                if (contain(edges[i], edges[i + 1], edges[j], edges[j + 1])) {
+                if (rectangles[i].contains(leftTopArray[j]) && rectangles[i].contains(rightBottomArray[j])) {
                     containCount++;
                 }
 
-                if (contain(edges[j], edges[j + 1], edges[i], edges[i + 1])) {
+                if (rectangles[j].contains(leftTopArray[i]) && rectangles[j].contains(rightBottomArray[i])) {
                     containCount++;
                 }
             }
@@ -55,25 +71,4 @@ public class E1_2_3 {
         System.out.println("intersect count:" + intersectCount);
         System.out.println("contain count:" + containCount);
     }
-
-    private static boolean contain(Interval1D aWidth, Interval1D aHeight, Interval1D bWidth, Interval1D bHeight) {
-        if (!aWidth.contains(bWidth.min())) {
-            return false;
-        }
-
-        if (!aWidth.contains(bWidth.max())) {
-            return false;
-        }
-
-        if (!aHeight.contains(bHeight.min())) {
-            return false;
-        }
-
-        if (!aHeight.contains(bHeight.max())) {
-            return false;
-        }
-
-        return true;
-    }
-
 }
