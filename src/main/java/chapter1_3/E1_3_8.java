@@ -3,32 +3,36 @@ package chapter1_3;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class E1_3_1 {
+public class E1_3_8 {
     public static void main(String[] args) {
-        FixedCapacityStackOfString s = new FixedCapacityStackOfString(100);
+        DoublingStackOfStrings s = new DoublingStackOfStrings(50);
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-")) {
                 s.push(item);
             } else {
                 if (!s.isEmpty()) {
-                    StdOut.println(s.pop() + " ");
+                    StdOut.print(s.pop() + " ");
                 }
             }
         }
 
-        StdOut.println("(" + s.size() + " left on stack)");
+        StdOut.println();
+        StdOut.println("size:" + s.size());
+        while (!s.isEmpty()) {
+            StdOut.print(s.pop() + " ");
+        }
     }
-
-    public static class FixedCapacityStackOfString {
-        private String[] a;
+    public static class DoublingStackOfStrings {
         private int N;
-        public FixedCapacityStackOfString(int cap) {
+        private String[] a;
+
+        public DoublingStackOfStrings(int cap) {
             a = new String[cap];
         }
 
         public void push(String item) {
-            if (isFull()) {
+            if (N == a.length) {
                 resize(2 * a.length);
             }
 
@@ -40,15 +44,18 @@ public class E1_3_1 {
             for (int i = 0; i < N; i++) {
                 temp[i] = a[i];
             }
+
             a = temp;
         }
 
         public String pop() {
             String item = a[--N];
             a[N] = null;
-            if (N > 0 && N < a.length / 4) {
+
+            if (N < a.length / 4) {
                 resize(a.length / 2);
             }
+
             return item;
         }
 
@@ -58,10 +65,6 @@ public class E1_3_1 {
 
         public int size() {
             return N;
-        }
-
-        public boolean isFull() {
-            return N == a.length;
         }
     }
 }
