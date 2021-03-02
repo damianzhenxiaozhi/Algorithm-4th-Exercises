@@ -33,6 +33,8 @@ public class E2_1_11 extends SortAlgs {
             }
             h = h/3;
         }
+
+        assert isSorted(a);
     }
 
 

@@ -1,6 +1,7 @@
 package chapter2_2;
 
 import chapter2_1.algs.SortAlgs;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class E2_2_11 extends SortAlgs {
     private static Comparable[] aux;
@@ -57,6 +58,12 @@ public class E2_2_11 extends SortAlgs {
     }
 
     public static void main(String[] args) {
+        Double[] a = new Double[20];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = StdRandom.uniform();
+        }
 
+        sort(a);
+        show(a);
     }
 }
