@@ -31,7 +31,6 @@ public class E2_2_10 extends SortAlgs {
         int i = lo;
         int j = hi;
         for (int k = lo; k <= hi; k++) {
-            if (i == j) return;
             else if (less(aux[i], aux[j])) a[k] = aux[i++];
             else a[k] = aux[j--];
         }
