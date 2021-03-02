@@ -17,6 +17,8 @@ public class Shell extends SortAlgs {
             }
             h = h/3;
         }
+
+        assert isSorted(a);
     }
 
     public static void main(String[] args) {
@@ -26,8 +28,5 @@ public class Shell extends SortAlgs {
         }
 
         sort(a);
-
-        show(a);
-        StdOut.println("isSorted:" + isSorted(a));
     }
 }

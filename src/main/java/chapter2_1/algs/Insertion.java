@@ -16,6 +16,8 @@ public class Insertion extends SortAlgs {
 
             a[++j] = d;
         }
+
+        assert isSorted(a);
     }
 
     public static void sortSwap(Comparable[] a) {
@@ -33,8 +35,6 @@ public class Insertion extends SortAlgs {
             a[i] = StdRandom.uniform();
         }
 
-        sortSwap(a);
-        show(a);
-        StdOut.println("isSorted:" + isSorted(a));
+        sort(a);
     }
 }

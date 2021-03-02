@@ -16,6 +16,8 @@ public class Select extends SortAlgs {
 
             exch(a, i, minIndex);
         }
+
+        assert isSorted(a);
     }
 
     public static void main(String[] args) {
@@ -25,8 +27,5 @@ public class Select extends SortAlgs {
         }
 
         sort(a);
-
-        show(a);
-        StdOut.println("isSorted:" + isSorted(a));
     }
 }
